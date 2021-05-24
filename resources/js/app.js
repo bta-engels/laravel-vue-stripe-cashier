@@ -1,8 +1,7 @@
 require('./bootstrap')
-
 import Vue from "vue";
-
 import Vuex from "vuex";
+import axios from "axios";
 Vue.use(Vuex);
 
 import VueRouter from "vue-router";
@@ -44,7 +43,7 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        getCategories({commit}) {
+        getProducts({commit}) {
             // fetch the categories and attached products from the api
             axios.get('/api/products')
                 .then((response) => {
@@ -63,7 +62,7 @@ const app = new Vue({
     store,
     el: '#app',
     created() {
-        store.dispatch('getCategories')
+        store.dispatch('getProducts')
             .then(_ => {})
             .catch((error) => console.error(error));
     }

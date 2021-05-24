@@ -1,19 +1,17 @@
 <?php
-
 namespace Database\Factories;
 
-use App\Models\Category;
+use App\Models\Size;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class CategoryFactory extends Factory
+class SizeFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Category::class;
+    protected $model = Size::class;
 
     /**
      * Define the model's default state.
@@ -22,14 +20,8 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->jobTitle;
-        $nameArr = explode(' ', $name);
-
-        $name = trim($nameArr[0]);
-
         return [
-            'name' => $name,
-            'slug' => Str::slug($name),
+            //
         ];
     }
 }

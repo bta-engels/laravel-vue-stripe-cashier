@@ -1,11 +1,11 @@
 <?php
-
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\ProductSize;
+use App\Models\Size;
 use App\Models\Order;
-use Illuminate\Database\Seeder;
 use App\Models\Product;
+use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
 {
@@ -17,29 +17,24 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::factory()
-            ->times(20)
+            ->times(3)
             ->create();
 
-        Category::factory()
-            ->times(4)
-            ->create();
+        $sizes = [
+            ['name' => 'S'],
+            ['name' => 'M'],
+            ['name' => 'L'],
+            ['name' => 'XL'],
+        ];
+        Size::insert($sizes);
 
-        Order::factory()
-            ->times(10)
-            ->create();
-
-        $categories = Category::all();
-        Product::all()->each(function ($product) use ($categories) {
-            $product->categories()->attach(
-                $categories->random(2)->pluck('id')->toArray()
-            );
-        });
-
-        $orders = Order::all();
-        Product::all()->each(function ($product) use ($orders) {
-            $orderIds = $orders->random(3)->pluck('id')->toArray();
-            foreach($orderIds as $orderId) {
-                $product->orders()->attach($orderId, ['quantity' => rand(1, 5)]);
+        $products = Product::all();
+        Size::all()->each(function ($size) use ($products) {
+            foreach ($products as $product) {
+                $product->sizes()->create([
+                    'product_id'    => $product->id,
+                    'size_id'       => $size->id,
+                ]);
             }
         });
     }

@@ -23,14 +23,13 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        $productPrefixes = ['Sweater', 'Pants', 'Shirt', 'Hat', 'Glasses', 'Socks'];
-        $name = $this->faker->company . ' ' . Arr::random($productPrefixes);
+        $name = $this->faker->company . ' Shirt';
 
         return [
             'name' => $name,
             'slug' => Str::slug($name),
-            'description' => $this->faker->realText(320),
-            'price' => $this->faker->numberBetween(10000, 100000),
+            'description' => $this->faker->realText(100),
+            'price' => $this->faker->numberBetween(1500, 2000),
         ];
     }
 }

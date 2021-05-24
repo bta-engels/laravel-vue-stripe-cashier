@@ -1,27 +1,21 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
-
     public function index()
     {
-        return Product::with(['categories' => function($query) {
-            $query->select('id', 'name');
-        }])
-            ->get();
+        $products = Product::with(['sizes'])->get();
+        return $products;
     }
 
     public function show(Product $product)
     {
-        $product->load('categories:id,name');
-
+        $product->load(['sizes']);
         return $product;
     }
-
 }

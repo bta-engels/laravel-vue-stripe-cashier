@@ -21,7 +21,7 @@
                                 </svg>
                                 <span class="ml-3 text-xl">Shopping Cart</span>
                             </a>
-                            <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+                            <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
                                 <router-link
                                     class="mr-5 hover:text-gray-900"
                                     :to="{name: 'products.index'}"
@@ -29,7 +29,7 @@
                                     Products
                                 </router-link>
                             </nav>
-                            <router-link
+                            <router-link v-if="$store.state.cart.length > 0"
                                 class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"
                                 :to="{name: 'order.checkout'}"
                             >

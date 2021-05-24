@@ -5,6 +5,7 @@
                 <thead>
                 <tr>
                     <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200 rounded-tl rounded-bl">Item</th>
+                    <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Size</th>
                     <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Quantity</th>
                     <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Price</th>
                     <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Actions</th>
@@ -13,6 +14,7 @@
                 <tbody>
                     <tr v-for="(item, index) in cart" :key="item.id">
                         <td class="p-4" v-text="item.name"></td>
+                        <td v-if="item.size" class="p-4" v-text="item.size"></td>
                         <td class="p-4" v-text="item.quantity"></td>
                         <td class="p-4" v-text="cartLineTotal(item)"></td>
                         <td class="w-10 text-right">
@@ -41,7 +43,7 @@
                             id="first_name"
                             name="first_name"
                             class="w-full bg-gray-100 rounded border border-gray-300 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                            v-model="customer.first_name"
+                            v-model="customer.firstname"
                             :disabled="paymentProcessing"
                         >
                     </div>
@@ -54,7 +56,7 @@
                             id="last_name"
                             name="last_name"
                             class="w-full bg-gray-100 rounded border border-gray-300 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                            v-model="customer.last_name"
+                            v-model="customer.lastname"
                             :disabled="paymentProcessing"
                         >
                     </div>
@@ -154,13 +156,13 @@
                 stripe: {},
                 cardElement: {},
                 customer: {
-                    first_name: '',
-                    last_name: '',
-                    email: '',
-                    address: '',
-                    city: '',
-                    state: '',
-                    zip_code: ''
+                    firstname: 'Otto',
+                    lastname: 'Meier',
+                    email: 'engels@f50.de',
+                    address: 'Ackerstrasse 22',
+                    city: 'Berlin',
+                    state: null,
+                    zip_code: '10115'
                 },
                 paymentProcessing: false
             }
@@ -182,7 +184,7 @@
                 let amount = item.price * item.quantity;
                 amount = (amount / 100);
 
-                return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                return amount.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
             },
             async processPayment() {
                 this.paymentProcessing = true;
@@ -190,7 +192,7 @@
                 const {paymentMethod, error} = await this.stripe.createPaymentMethod(
                     'card', this.cardElement, {
                         billing_details: {
-                            name: this.customer.first_name + ' ' + this.customer.last_name,
+                            name: this.customer.firstname + ' ' + this.customer.lastname,
                             email: this.customer.email,
                             address: {
                                 line1: this.customer.address,
@@ -209,6 +211,7 @@
                     console.log(paymentMethod);
                     this.customer.payment_method_id = paymentMethod.id;
                     this.customer.amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+                    console.info(this.$store.state.cart)
                     this.customer.cart = JSON.stringify(this.$store.state.cart);
 
                     axios.post('/api/purchase', this.customer)
@@ -239,7 +242,7 @@
                 let amount = this.$store.state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
                 amount = (amount / 100);
 
-                return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                return amount.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
             }
         }
     }

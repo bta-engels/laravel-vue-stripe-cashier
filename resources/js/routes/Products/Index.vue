@@ -9,7 +9,7 @@
                     <div class="mt-4">
                         <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1 uppercase inline-block mr-2">N/A</h3>
                         <h2 class="text-gray-900 title-font text-lg font-medium">Loading</h2>
-                        <p class="mt-1">$0.00</p>
+                        <p class="mt-1">0.00 €</p>
                     </div>
                 </div>
             </div>
@@ -26,11 +26,6 @@
                         <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260">
                     </router-link>
                     <div class="mt-4">
-                        <h3
-                            class="text-gray-500 text-xs tracking-widest title-font mb-1 uppercase inline-block mr-2"
-                            v-for="category in product.categories"
-                            v-text="category.name"
-                        ></h3>
                         <h2
                             class="text-gray-900 title-font text-lg font-medium"
                             v-text="product.name"
@@ -50,7 +45,7 @@
         methods: {
             formatCurrency(amount) {
                 amount = (amount / 100);
-                return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                return amount.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
             }
         },
         computed: {

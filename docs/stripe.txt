@@ -1,0 +1,21 @@
+STRIPE_KEY
+pk_test_51Hpsv5BFmNHaPuJ0pUoOtGHTJVhuu8cBPE17gdPfLUjoWm26n96BOD755eMnpWRdyyJ73lAtJ5AVORrlJKb36Kf200tx4I74M9
+STRIPE_SECRET
+sk_test_51Hpsv5BFmNHaPuJ0kyxF8SR1NohuToRqxK8z6yVeKaSbLNuWRAFrNM73tn2S0zaHCMxsDmLqm2U4EOXEQ76TkNeq00lyFyRtYo
+
+Test Daten
+Any name
+Any email address
+
+wir brauchen SEPA-Gläubiger-ID ??? ist noch offen
+
+Lastschrift SEPA
+DE: DE89370400440532013000
+
+Card
+4242424242424242 	Visa
+4000002760000016    DE Visa
+5555555555554444 	Mastercard
+
+webhook local:
+stripe listen --forward-to https://schoki2.test/payment/stripe/webhook

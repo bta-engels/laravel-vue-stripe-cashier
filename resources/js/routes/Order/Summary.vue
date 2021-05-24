@@ -10,13 +10,16 @@
                 <thead>
                 <tr>
                     <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200 rounded-tl rounded-bl">Item</th>
+                    <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Size</th>
                     <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Quantity</th>
                     <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Price</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="item in order.products" :key="item.id">
+                    {{ debug(item) }}
                     <td class="p-4" v-text="item.name"></td>
+                    <td class="p-4" v-text="item.pivot.size"></td>
                     <td class="p-4" v-text="item.pivot.quantity"></td>
                     <td class="p-4" v-text="cartLineTotal(item)"></td>
                 </tr>
@@ -37,7 +40,10 @@
                 let amount = item.price * item.pivot.quantity;
                 amount = (amount / 100);
 
-                return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                return amount.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+            },
+            debug (data) {
+                console.info(data)
             }
         },
         computed: {
@@ -51,7 +57,7 @@
                 let amount = this.$store.state.order.products.reduce((acc, item) => acc + (item.price * item.pivot.quantity), 0);
                 amount = (amount / 100);
 
-                return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                return amount.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
             }
         }
     }

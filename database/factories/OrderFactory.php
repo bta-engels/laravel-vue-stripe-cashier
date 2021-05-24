@@ -1,10 +1,9 @@
 <?php
-
 namespace Database\Factories;
 
 use App\Models\Order;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrderFactory extends Factory
 {
@@ -23,9 +22,9 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => $this->faker->numberBetween(1, 10),
+            'customer_id' => 1,
             'transaction_id' => Str::random(16),
-            'total' => $this->faker->numberBetween(50000, 200000),
+            'total' => $this->faker->numberBetween(1500, 4000),
         ];
     }
 }
